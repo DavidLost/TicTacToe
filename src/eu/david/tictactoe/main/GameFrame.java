@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Frame extends JFrame {
+import static java.lang.Integer.parseInt;
+
+public class GameFrame extends JFrame {
 
     public static int width;
     public static int height;
@@ -16,18 +18,18 @@ public class Frame extends JFrame {
     private JPanel panel;
     private JButton[][] buttons = new JButton[height][width];
     private byte matrix[][] = new byte[height][width];
+    int[][] winCombo = new int[2][rowLength];
 
     private int gameCounter = 0;
     private ImageIcon kreutzIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\KreutzS.png");
     private ImageIcon kreisIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\KreisS.png");
 
-    public Frame() {
+    public GameFrame() {
 
         super("TicTacToe");
 
-        /*System.out.println(halfOfButtons);
-        System.out.println(winCombos.length);
-        System.out.println(winCombos[0].length);*/
+        System.out.println(matrix.length);
+        System.out.println(matrix[0].length);
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -67,8 +69,8 @@ public class Frame extends JFrame {
 
         String temp = event.toString();
         int length = temp.length();
-        int x = Integer.parseInt(temp.substring(length-2, length));
-        int y = Integer.parseInt(temp.substring(length-5, length-3));
+        int x = parseInt(temp.substring(length-2, length));
+        int y = parseInt(temp.substring(length-5, length-3));
         if (matrix[y][x] != 0) {
             return;
         }
@@ -78,9 +80,15 @@ public class Frame extends JFrame {
         matrixOutput();
         if (isWinner(1)) {
             System.out.println("you won!");
+            new Dialog(3);
         }
-        if (isGameFinish()) {
-            System.out.println("aha");
+        if (isWinner(2)) {
+            System.out.println("you won!");
+            new Dialog(1);
+        }
+        if (isfieldFull()) {
+            System.out.println("vooll");
+            new Dialog(2);
         }
     }
 
@@ -107,7 +115,7 @@ public class Frame extends JFrame {
         return new int[] {y, x};
     }
 
-    private boolean isGameFinish() {
+    private boolean isfieldFull() {
 
         gameCounter++;
 
@@ -135,6 +143,8 @@ public class Frame extends JFrame {
                 int counter = 0;
                 for (int partsX = locX; partsX < rowLength+locX; partsX++) {
                     if (matrix[locY][partsX] == type) {
+                        winCombo[0][counter] = locY;
+                        winCombo[1][counter] = partsX;
                         counter++;
                     }
                 }
@@ -149,6 +159,8 @@ public class Frame extends JFrame {
                 int counter = 0;
                 for (int partsY = locY; partsY < rowLength+locY; partsY++) {
                     if (matrix[partsY][locX] == type) {
+                        winCombo[0][counter] = partsY;
+                        winCombo[1][counter] = locX;
                         counter++;
                     }
                 }
@@ -158,11 +170,30 @@ public class Frame extends JFrame {
             }
         }
 
-        for (int locY = 0; locY < height; locY++) {
+        for (int locY = 0; locY < height-rowLength+1; locY++) {
             for (int locX = 0; locX < width-rowLength+1; locX++) {
                 int counter = 0;
                 for (int partsX = locX; partsX < rowLength+locX; partsX++) {
-                    if (matrix[locY+locX][partsX] == type) {
+                    if (matrix[locY+partsX-locX][partsX] == type) {
+                        winCombo[0][counter] = locY+partsX-locX;
+                        winCombo[1][counter] = partsX;
+                        counter++;
+                    }
+                }
+                if (counter == rowLength) {
+                    return true;
+                }
+            }
+        }
+
+        for (int locY = height-1; locY >= rowLength-1; locY--) {
+            for (int locX = 0; locX < width-rowLength+1; locX++) {
+                int counter = 0;
+                int offsetY = 0;
+                for (int partsX = locX; partsX < rowLength+locX; partsX++, offsetY++) {
+                    if (matrix[locY-offsetY][partsX] == type) {
+                        winCombo[0][counter] = locY-offsetY;
+                        winCombo[1][counter] = partsX;
                         counter++;
                     }
                 }

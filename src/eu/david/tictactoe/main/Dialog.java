@@ -7,7 +7,7 @@ public class Dialog extends JFrame {
     JPanel panel;
     JLabel label;
 
-    public Dialog(int mode) {
+    public Dialog(int winner) {
 
         super("TicTacToe Menu");
 
@@ -29,15 +29,11 @@ public class Dialog extends JFrame {
                         + "</font></html>",
         };
 
-        label = new JLabel(messages[mode]);
+        label = new JLabel(messages[winner]);
 
         setSize(800, 450);
         setLocationRelativeTo(null);
         setVisible(true);
-
-        /*"Congratiolatins you won!",
-                "Maybe you have better luck next time :/",
-                "Draw!"*/
 
         panel.add(label);
         add(panel);
