@@ -10,9 +10,10 @@ import static java.lang.Integer.parseInt;
 
 public class GameFrame extends JFrame {
 
-    public static int columns;
-    public static int rows;
-    public static int fieldInRowToWin;
+    protected static int sizeProportion;
+    protected static int columns;
+    protected static int rows;
+    protected static int fieldInRowToWin;
     private int allFields = columns*rows;
 
     private JPanel panel;
@@ -74,7 +75,7 @@ public class GameFrame extends JFrame {
             return;
         }
         matrix[y][x] = 1;
-        buttons[y][x].setIcon(kreutzIcon);
+        buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
         botActions();
         matrixOutput();
         if (isWinner(1)) {
@@ -89,6 +90,13 @@ public class GameFrame extends JFrame {
             System.out.println("vooll");
             new Dialog(2);
         }
+    }
+
+    ImageIcon scaleImageIcon(ImageIcon icon, int percent) {
+
+        Image temp = icon.getImage();
+        temp = temp.getScaledInstance(icon.getIconWidth()*percent, icon.getIconHeight()*percent, Image.SCALE_SMOOTH);
+        return new ImageIcon(temp);
     }
 
     private void botActions() {
