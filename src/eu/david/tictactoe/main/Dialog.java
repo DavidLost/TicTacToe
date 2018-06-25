@@ -9,7 +9,7 @@ public class Dialog extends JFrame {
 
     public Dialog(int winner) {
 
-        super("TicTacToe Menu");
+        super("TicTacToe Info");
 
         panel = new JPanel();
 
@@ -33,6 +33,7 @@ public class Dialog extends JFrame {
 
         setSize(800, 450);
         setLocationRelativeTo(null);
+        setAlwaysOnTop(true);
         setVisible(true);
 
         panel.add(label);
