@@ -3,6 +3,8 @@ package eu.david.tictactoe.main;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,7 +12,7 @@ import static java.lang.Integer.parseInt;
 
 public class GameFrame extends JFrame {
 
-    protected static int sizeProportion;
+    private int sizeProportion = 100;
     protected static int columns;
     protected static int rows;
     protected static int fieldInRowToWin;
@@ -63,6 +65,32 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        getContentPane().addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent event) {
+                int height = getHeight();
+                int width = getWidth();
+                sizeProportion = height < width ? height/6: width/6;
+                //System.out.println("sizeProportion: "+sizeProportion);
+                for (int y = 0; y < columns; y++) {
+                    for (int x = 0; x < rows; x++) {
+                        switch (matrix[y][x]) {
+                            case 1 : buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+                            break;
+                            case 2 : buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    ImageIcon scaleImageIcon(ImageIcon icon, int percent) {
+
+        Image temp = icon.getImage();
+        temp = temp.getScaledInstance(icon.getIconWidth()*percent/100, icon.getIconHeight()*percent/100, Image.SCALE_SMOOTH);
+        return new ImageIcon(temp);
     }
 
     private void playerActions(ActionEvent event) {
@@ -90,13 +118,6 @@ public class GameFrame extends JFrame {
             System.out.println("vooll");
             new Dialog(2);
         }
-    }
-
-    ImageIcon scaleImageIcon(ImageIcon icon, int percent) {
-
-        Image temp = icon.getImage();
-        temp = temp.getScaledInstance(icon.getIconWidth()*percent, icon.getIconHeight()*percent, Image.SCALE_SMOOTH);
-        return new ImageIcon(temp);
     }
 
     private void botActions() {
