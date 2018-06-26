@@ -5,7 +5,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class StartFrame extends JFrame {
+public class MenuFrame extends JFrame {
 
     JPanel panel;
 
@@ -20,7 +20,7 @@ public class StartFrame extends JFrame {
     int min = 3;
     int max = 15;
 
-    public StartFrame() {
+    public MenuFrame() {
 
         super("TicTacToe Menu");
 
