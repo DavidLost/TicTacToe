@@ -12,6 +12,9 @@ import static java.lang.Integer.parseInt;
 
 public class GameFrame extends JFrame {
 
+    public boolean hasFinished = false;
+    public int finishState = 0;
+
     private int sizeProportion = 100;
     protected static int columns;
     protected static int rows;
@@ -82,11 +85,8 @@ public class GameFrame extends JFrame {
     private void getNewSizeProportion() {
 
         double boxHeight = getHeight()/rows;
-        System.out.println("boxHeight: "+boxHeight);
         double boxWidth = getWidth()/columns;
-        System.out.println("boxWidth: "+boxWidth);
         double length = boxHeight < boxWidth ? boxHeight : boxWidth;
-        System.out.println("length: "+length);
 
         sizeProportion = (int)(length/kreisIcon.getIconHeight()*100);
     }
@@ -122,19 +122,25 @@ public class GameFrame extends JFrame {
         }
         matrix[y][x] = 1;
         buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+
         botActions();
-        matrixOutput();
+
+        gameCounter++;
+
         if (isWinner(1)) {
             System.out.println("you won!");
-            new Dialog(3);
+            hasFinished = true;
+            finishState = 2;
         }
-        if (isWinner(2)) {
+        else if (isWinner(2)) {
             System.out.println("bot won!");
-            new Dialog(1);
+            hasFinished = true;
+            finishState = 1;
         }
-        if (isfieldFull()) {
+        else if (isfieldFull()) {
             System.out.println("vooll");
-            new Dialog(2);
+            hasFinished = true;
+            finishState = 0;
         }
     }
 
@@ -162,8 +168,6 @@ public class GameFrame extends JFrame {
     }
 
     private boolean isfieldFull() {
-
-        gameCounter++;
 
         System.out.println("count: "+gameCounter*2);
 
@@ -254,17 +258,6 @@ public class GameFrame extends JFrame {
         }
 
         return false;
-    }
-
-    private void matrixOutput() {
-
-        for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < columns; x++) {
-                System.out.print(matrix[y][x]+"-");
-            }
-            System.out.println();
-        }
-        System.out.println();
     }
 
 }
