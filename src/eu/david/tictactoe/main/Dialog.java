@@ -7,37 +7,64 @@ public class Dialog extends JOptionPane {
     int choice = 0;
 
     String[] options = {
-            "restart",
+            "revanche",
             "change settings",
             "exit"
     };
-    String[] messages = {
-            "<html><font size=\"8\" color=\"orange\">"
-                    + "Draw!"
-                    + "</font></html>",
+    String[][] messages = {
+            {
+                    "<html><font size=\"8\" color=\"orange\">"
+                            + "Draw!"
+                            + "</font></html>",
 
-            "<html><font size=\"8\" color=\"red\">"
-                    + "Maybe you have better luck next time :/"
-                    + "</font></html>",
+                    "<html><font size=\"8\" color=\"red\">"
+                            + "Bot has won the game :/"
+                            + "</font></html>",
 
-            "<html><font size=\"8\" color=\"lime\">"
-                    + "Congratiolatins you won!"
-                    + "</font></html>"
+                    "<html><font size=\"8\" color=\"lime\">"
+                            + "Congratiolatins you won the game!"
+                            + "</font></html>"
+            },
+            {
+                    "<html><font size=\"8\" color=\"orange\">"
+                            + "Draw!"
+                            + "</font></html>",
+
+                    "<html><font size=\"8\" color=\"lime\">"
+                            + "Player 2 has won the game!"
+                            + "</font></html>",
+
+                    "<html><font size=\"8\" color=\"lime\">"
+                            + "Player 1 has won the game!"
+                            + "</font></html>"
+            }
     };
 
-    public Dialog(int winner, JFrame frame) {
+    public Dialog(JFrame frame, int winner, int mode) {
 
-        choice = this.showOptionDialog(
-                frame,
-                messages[winner],
-                "Game Finished",
-                DEFAULT_OPTION,
-                PLAIN_MESSAGE,
-                null,
-                options,
-                options[0]
-        )+1;
-
+        if (mode == 0) {
+            choice = this.showOptionDialog(
+                    frame,
+                    messages[mode][winner],
+                    "Game Finished",
+                    DEFAULT_OPTION,
+                    PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            )+1;
+        }
+        else {
+            choice = this.showOptionDialog(
+                    frame,
+                    messages[mode][winner],
+                    "Game Finished",
+                    DEFAULT_OPTION,
+                    PLAIN_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            )+1;
+        }
     }
-
 }

@@ -13,6 +13,8 @@ public class StartFrame extends JFrame {
     JLabel[] infoLabels = new JLabel[3];
     JLabel[] counterLabels = new JLabel[3];
 
+    JCheckBox gravityBox;
+    JComboBox modeBox;
     JButton startButton;
 
     int min = 3;
@@ -58,14 +60,17 @@ public class StartFrame extends JFrame {
             panel.add(counterLabels[i]);
         }
 
-
-
+        gravityBox = new JCheckBox("gravity");
+        gravityBox.setHorizontalAlignment(SwingConstants.CENTER);
+        modeBox = new JComboBox(new String[] {"play against bot", "play against other player"});
         startButton = new JButton("start game");
 
+        panel.add(gravityBox);
+        panel.add(modeBox);
         panel.add(startButton);
 
         add(panel);
-        setSize(700, 180);
+        setSize(700, 160);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
@@ -92,11 +97,12 @@ public class StartFrame extends JFrame {
         if (fieldInRowToWin > columns && fieldInRowToWin > rows) {
             return;
         }
+        boolean gravity = gravityBox.isSelected();
+        int mode = modeBox.getSelectedIndex();
+
         setVisible(false);
-        GameFrame.columns = columns;
-        GameFrame.rows = rows;
-        GameFrame.fieldInRowToWin = fieldInRowToWin;
-        GameFrame game = new GameFrame();
+
+        GameFrame game = new GameFrame(columns, rows, fieldInRowToWin, gravity, mode);
 
         Thread checkGameState = new Thread(new Runnable() {
             @Override
@@ -109,7 +115,7 @@ public class StartFrame extends JFrame {
                         e.printStackTrace();
                     }
                 }
-                Dialog dialog = new Dialog(game.finishState, (JFrame)game);
+                Dialog dialog = new Dialog(game, game.finishState, mode);
                 game.dispose();
                 switch (dialog.choice) {
                     case 1 : restart();

@@ -16,23 +16,41 @@ public class GameFrame extends JFrame {
     public int finishState = 0;
 
     private int sizeProportion = 100;
-    protected static int columns;
-    protected static int rows;
-    protected static int fieldInRowToWin;
-    private int allFields = columns*rows;
+    private int columns;
+    private int rows;
+    private int fieldInRowToWin;
+    private int allFields;
+    private boolean gravity;
+    private int mode;
+    private boolean playerTurn = false;
 
     private JPanel panel;
-    private JButton[][] buttons = new JButton[rows][columns];
-    private byte matrix[][] = new byte[rows][columns];
-    int[][] winCombo = new int[2][fieldInRowToWin];
+    private JButton[][] buttons;
+    private byte[][] matrix;
+    int[][] winCombo;
 
     private int gameCounter = 0;
     private ImageIcon kreutzIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreutz.png");
     private ImageIcon kreisIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreis.png");
 
-    public GameFrame() {
+    public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
 
         super("TicTacToe");
+
+        this.columns = columns;
+        this.rows = rows;
+        this.fieldInRowToWin = fieldInRowToWin;
+        this.allFields = columns*rows;
+        this.gravity = gravity;
+        this.mode = mode;
+
+        matrix = new byte[rows][columns];
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < columns; x++) {
+                matrix[y][x] = 0;
+            }
+        }
+        winCombo = new int[2][fieldInRowToWin];
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -45,6 +63,8 @@ public class GameFrame extends JFrame {
         panel = new JPanel();
         panel.setLayout(new GridLayout(rows, columns));
 
+        buttons = new JButton[rows][columns];
+
         for (int y = 0 ; y < rows; y++) {
             for (int x = 0 ; x < columns; x++) {
                 buttons[y][x] = new JButton();
@@ -56,7 +76,7 @@ public class GameFrame extends JFrame {
                 buttons[y][x].setName(name);
                 System.out.println("name: "+name);
                 panel.add(buttons[y][x]);
-                buttons[y][x].addActionListener(event -> playerActions(event));
+                buttons[y][x].addActionListener(event -> actions(event));
             }
         }
 
@@ -78,6 +98,7 @@ public class GameFrame extends JFrame {
             }
         });
     }
+
 
     private void getNewSizeProportion() {
 
@@ -108,37 +129,62 @@ public class GameFrame extends JFrame {
         return new ImageIcon(temp);
     }
 
-    private void playerActions(ActionEvent event) {
+    private void actions(ActionEvent event) {
+
+        if (mode == 1) {
+            playerActions(event, playerTurn);
+            if (checkForFinish()) {return;}
+            playerTurn = !playerTurn;
+        }
+        else {
+            playerActions(event, playerTurn);
+            if (checkForFinish()) {return;}
+            botActions();
+            if (checkForFinish()) {return;}
+        }
+    }
+
+    private void playerActions(ActionEvent event, boolean player) {
 
         String temp = event.toString();
         int length = temp.length();
         int x = parseInt(temp.substring(length-2, length));
         int y = parseInt(temp.substring(length-5, length-3));
+        if (gravity) {
+            y = getGravityY(y, x);
+        }
         if (matrix[y][x] != 0) {
             return;
         }
-        matrix[y][x] = 1;
-        buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+        if (!player) {
+            matrix[y][x] = 1;
+            buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+        }
+        else {
+            matrix[y][x] = 2;
+            buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+        }
 
-        botActions();
+        if (mode == 0) {gameCounter += 2;}
+        else {gameCounter++;}
+    }
 
-        gameCounter++;
+    private boolean checkForFinish() {
 
         if (isWinner(1)) {
-            System.out.println("you won!");
             hasFinished = true;
             finishState = 2;
         }
         else if (isWinner(2)) {
-            System.out.println("bot won!");
             hasFinished = true;
             finishState = 1;
         }
         else if (isfieldFull()) {
-            System.out.println("vooll");
             hasFinished = true;
             finishState = 0;
         }
+
+        return hasFinished;
     }
 
     private void botActions() {
@@ -146,9 +192,22 @@ public class GameFrame extends JFrame {
         int temp[] = getBotButton();
         int y = temp[0];
         int x = temp[1];
-
+        if (gravity) {
+            y = getGravityY(y, x);
+        }
         matrix[y][x] = 2;
         buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+    }
+
+    private int getGravityY(int y, int x) {
+
+        try {
+            while (matrix[y+1][x] == 0) {
+                y++;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {}
+
+        return y;
     }
 
     private int[] getBotButton() {
@@ -166,20 +225,9 @@ public class GameFrame extends JFrame {
 
     private boolean isfieldFull() {
 
-        System.out.println("count: "+gameCounter*2);
-
-        if (gameCounter*2 >= allFields-1) {
-            gameCounter = 0;
-            System.out.println("finished!");
-            for (int y = 0; y < rows; y++) {
-                for (int x = 0; x < columns; x++) {
-                    matrix[y][x] = 0;
-                    buttons[y][x].setIcon(null);
-                }
-            }
+        if (gameCounter >= allFields-1) {
             return true;
         }
-
         return false;
     }
 
