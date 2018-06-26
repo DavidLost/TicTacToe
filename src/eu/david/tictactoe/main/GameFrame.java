@@ -34,9 +34,6 @@ public class GameFrame extends JFrame {
 
         super("TicTacToe");
 
-        //System.out.println(matrix.length);
-        //System.out.println(matrix[0].length);
-
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException e) {
