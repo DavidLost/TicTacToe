@@ -24,8 +24,8 @@ public class GameFrame extends JFrame {
     int[][] winCombo = new int[2][fieldInRowToWin];
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\KreutzS.png");
-    private ImageIcon kreisIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\KreisS.png");
+    private ImageIcon kreutzIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreutz.png");
+    private ImageIcon kreisIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreis.png");
 
     public GameFrame() {
 
@@ -66,24 +66,42 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
+        getNewSizeProportion();
+
         getContentPane().addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent event) {
-                int height = getHeight();
-                int width = getWidth();
-                sizeProportion = height < width ? height/6: width/6;
-                //System.out.println("sizeProportion: "+sizeProportion);
-                for (int y = 0; y < columns; y++) {
-                    for (int x = 0; x < rows; x++) {
-                        switch (matrix[y][x]) {
-                            case 1 : buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
-                            break;
-                            case 2 : buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
-                        }
-                    }
-                }
+
+                getNewSizeProportion();
+                System.out.println("sizeProportion: "+sizeProportion);
+                updateButtonIcons();
             }
         });
+    }
+
+    private void getNewSizeProportion() {
+
+        double boxHeight = getHeight()/rows;
+        System.out.println("boxHeight: "+boxHeight);
+        double boxWidth = getWidth()/columns;
+        System.out.println("boxWidth: "+boxWidth);
+        double length = boxHeight < boxWidth ? boxHeight : boxWidth;
+        System.out.println("length: "+length);
+
+        sizeProportion = (int)(length/kreisIcon.getIconHeight()*100);
+    }
+
+    private void updateButtonIcons() {
+
+        for (int y = 0; y < columns; y++) {
+            for (int x = 0; x < rows; x++) {
+                switch (matrix[y][x]) {
+                    case 1 : buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+                        break;
+                    case 2 : buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+                }
+            }
+        }
     }
 
     ImageIcon scaleImageIcon(ImageIcon icon, int percent) {
@@ -127,7 +145,7 @@ public class GameFrame extends JFrame {
         int x = temp[1];
 
         matrix[y][x] = 2;
-        buttons[y][x].setIcon(kreisIcon);
+        buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
     }
 
     private int[] getBotButton() {
