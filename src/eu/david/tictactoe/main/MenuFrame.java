@@ -7,18 +7,18 @@ import java.awt.*;
 
 public class MenuFrame extends JFrame {
 
-    JPanel panel;
+    private JPanel panel;
 
-    JSlider[] sliders = new JSlider[3];
-    JLabel[] infoLabels = new JLabel[3];
-    JLabel[] counterLabels = new JLabel[3];
+    private JSlider[] sliders = new JSlider[3];
+    private JLabel[] infoLabels = new JLabel[3];
+    private JLabel[] counterLabels = new JLabel[3];
 
-    JCheckBox gravityBox;
-    JComboBox modeBox;
-    JButton startButton;
+    private JCheckBox gravityBox;
+    private JComboBox modeBox;
+    private JButton startButton;
 
-    int min = 3;
-    int max = 15;
+    private int min = 3;
+    private int max = 15;
 
     public MenuFrame() {
 
@@ -26,10 +26,7 @@ public class MenuFrame extends JFrame {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-        } catch (ClassNotFoundException e) {
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
         }
 
         panel = new JPanel(new GridLayout(4, 3));
@@ -89,7 +86,7 @@ public class MenuFrame extends JFrame {
         }
     }
 
-    void startGame() {
+    private void startGame() {
 
         int columns = sliders[0].getValue();
         int rows = sliders[1].getValue();
