@@ -5,31 +5,26 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class MenuFrame extends JFrame {
+class MenuFrame extends JFrame {
 
-    JPanel panel;
+    private JSlider[] sliders = new JSlider[3];
+    private JLabel[] counterLabels = new JLabel[3];
 
-    JSlider[] sliders = new JSlider[3];
-    JLabel[] infoLabels = new JLabel[3];
-    JLabel[] counterLabels = new JLabel[3];
+    private JCheckBox gravityBox;
+    private JComboBox modeBox;
 
-    JCheckBox gravityBox;
-    JComboBox modeBox;
-    JButton startButton;
-
-    int min = 3;
-    int max = 15;
-
-    public MenuFrame() {
-
+    MenuFrame() {
         super("TicTacToe Menu");
+        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JPanel panel;
+        JLabel[] infoLabels = new JLabel[3];
+        JButton startButton;
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-        } catch (ClassNotFoundException e) {
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         panel = new JPanel(new GridLayout(4, 3));
@@ -46,6 +41,10 @@ public class MenuFrame extends JFrame {
         }
 
         Listener changeListener = new Listener();
+
+        int min = 3;
+        int max = 15;
+
         for (int i = 0; i < sliders.length; i++) {
             sliders[i] = new JSlider(min, max, 3);
             sliders[i].setMajorTickSpacing(1);
@@ -90,7 +89,7 @@ public class MenuFrame extends JFrame {
         }
     }
 
-    void startGame() {
+    private void startGame() {
 
         int columns = sliders[0].getValue();
         int rows = sliders[1].getValue();
