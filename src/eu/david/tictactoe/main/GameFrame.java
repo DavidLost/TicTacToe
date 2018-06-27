@@ -10,10 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Integer.parseInt;
 
-public class GameFrame extends JFrame {
+class GameFrame extends JFrame {
 
-    public boolean hasFinished = false;
-    public int finishState = 0;
+    boolean hasFinished = false;
+    int finishState = -1;
 
     private int sizeProportion = 100;
     private int columns;
@@ -24,14 +24,13 @@ public class GameFrame extends JFrame {
     private int mode;
     private boolean playerTurn = false;
 
-    private JPanel panel;
     private JButton[][] buttons;
     private byte[][] matrix;
-    int[][] winCombo;
+    private int[][] winCombo;
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreutz.png");
-    private ImageIcon kreisIcon = new ImageIcon("D:\\Bibliotheken\\Bilder\\Zeug\\Kreis.png");
+    private ImageIcon kreutzIcon = new ImageIcon("res\\kreutz.png");
+    private ImageIcon kreisIcon = new ImageIcon("res\\kreis.png");
 
     public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
 
@@ -60,7 +59,7 @@ public class GameFrame extends JFrame {
         } catch (IllegalAccessException e) {
         }
 
-        panel = new JPanel();
+        JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(rows, columns));
 
         buttons = new JButton[rows][columns];
@@ -83,7 +82,7 @@ public class GameFrame extends JFrame {
         add(panel);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 
         getNewSizeProportion();
@@ -132,19 +131,19 @@ public class GameFrame extends JFrame {
     private void actions(ActionEvent event) {
 
         if (mode == 1) {
-            playerActions(event, playerTurn);
+            if (playerActions(event, playerTurn)) {return;}
             if (checkForFinish()) {return;}
             playerTurn = !playerTurn;
         }
         else {
-            playerActions(event, playerTurn);
+            if (playerActions(event, playerTurn)) {return;}
             if (checkForFinish()) {return;}
             botActions();
             if (checkForFinish()) {return;}
         }
     }
 
-    private void playerActions(ActionEvent event, boolean player) {
+    private boolean playerActions(ActionEvent event, boolean player) {
 
         String temp = event.toString();
         int length = temp.length();
@@ -154,7 +153,7 @@ public class GameFrame extends JFrame {
             y = getGravityY(y, x);
         }
         if (matrix[y][x] != 0) {
-            return;
+            return true;
         }
         if (!player) {
             matrix[y][x] = 1;
@@ -167,6 +166,8 @@ public class GameFrame extends JFrame {
 
         if (mode == 0) {gameCounter += 2;}
         else {gameCounter++;}
+
+        return false;
     }
 
     private boolean checkForFinish() {
@@ -225,10 +226,7 @@ public class GameFrame extends JFrame {
 
     private boolean isfieldFull() {
 
-        if (gameCounter >= allFields-1) {
-            return true;
-        }
-        return false;
+        return gameCounter >= allFields-1;
     }
 
     private boolean isWinner(int type) {
@@ -303,6 +301,18 @@ public class GameFrame extends JFrame {
         }
 
         return false;
+    }
+
+    void matrixOutput() {
+
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < columns; x++) {
+                System.out.print(matrix[y][x]);
+                System.out.print("-");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 }

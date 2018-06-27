@@ -73,12 +73,13 @@ public class MenuFrame extends JFrame {
         setSize(700, 160);
         setLocationRelativeTo(null);
         setResizable(false);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setVisible(true);
 
         startButton.addActionListener(event -> startGame());
     }
 
-    public class Listener implements ChangeListener {
+    private class Listener implements ChangeListener {
 
         @Override
         public void stateChanged(ChangeEvent event) {
@@ -109,6 +110,9 @@ public class MenuFrame extends JFrame {
             public void run() {
 
                 while (!game.hasFinished) {
+                    if (game.finishState == -1) {
+                        dispose();
+                    }
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {

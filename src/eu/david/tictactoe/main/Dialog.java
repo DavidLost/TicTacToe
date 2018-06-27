@@ -2,7 +2,7 @@ package eu.david.tictactoe.main;
 
 import javax.swing.*;
 
-public class Dialog extends JOptionPane {
+public class Dialog {
 
     int choice = 0;
 
@@ -43,24 +43,24 @@ public class Dialog extends JOptionPane {
     public Dialog(JFrame frame, int winner, int mode) {
 
         if (mode == 0) {
-            choice = this.showOptionDialog(
+            choice = JOptionPane.showOptionDialog(
                     frame,
                     messages[mode][winner],
                     "Game Finished",
-                    DEFAULT_OPTION,
-                    PLAIN_MESSAGE,
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
                     null,
                     options,
                     options[0]
             )+1;
         }
         else {
-            choice = this.showOptionDialog(
+            choice = JOptionPane.showOptionDialog(
                     frame,
                     messages[mode][winner],
                     "Game Finished",
-                    DEFAULT_OPTION,
-                    PLAIN_MESSAGE,
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
                     null,
                     options,
                     options[0]
