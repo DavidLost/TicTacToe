@@ -29,8 +29,8 @@ class GameFrame extends JFrame {
     private int[][] winCombo;
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = new ImageIcon("res\\kreutz.png");
-    private ImageIcon kreisIcon = new ImageIcon("res\\kreis.png");
+    private ImageIcon kreutzIcon = RecourceLoader.getIcon("kreutz.png");
+    private ImageIcon kreisIcon = RecourceLoader.getIcon("kreis.png");
 
     public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
 
