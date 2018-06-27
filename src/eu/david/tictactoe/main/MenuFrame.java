@@ -17,9 +17,6 @@ public class MenuFrame extends JFrame {
     private JComboBox modeBox;
     private JButton startButton;
 
-    private int min = 3;
-    private int max = 15;
-
     public MenuFrame() {
 
         super("TicTacToe Menu");
@@ -43,6 +40,10 @@ public class MenuFrame extends JFrame {
         }
 
         Listener changeListener = new Listener();
+
+        int min = 3;
+        int max = 15;
+
         for (int i = 0; i < sliders.length; i++) {
             sliders[i] = new JSlider(min, max, 3);
             sliders[i].setMajorTickSpacing(1);
