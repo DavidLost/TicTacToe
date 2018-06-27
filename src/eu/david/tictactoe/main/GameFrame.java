@@ -7,6 +7,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import res.ResourceLoader;
 
 import static java.lang.Integer.parseInt;
 
@@ -29,8 +30,8 @@ class GameFrame extends JFrame {
     private int[][] winCombo;
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = RecourceLoader.getIcon("kreutz.png");
-    private ImageIcon kreisIcon = RecourceLoader.getIcon("kreis.png");
+    private ImageIcon kreutzIcon = ResourceLoader.getIcon("kreutz.png");
+    private ImageIcon kreisIcon = ResourceLoader.getIcon("kreis.png");
 
     public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
 
@@ -53,10 +54,8 @@ class GameFrame extends JFrame {
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-        } catch (ClassNotFoundException e) {
-        } catch (InstantiationException e) {
-        } catch (IllegalAccessException e) {
+        } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         JPanel panel = new JPanel();

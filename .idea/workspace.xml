@@ -6,7 +6,15 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="65b8d5db-1aab-4772-97b3-f786756ae688" name="Default" comment="" />
+    <list default="true" id="65b8d5db-1aab-4772-97b3-f786756ae688" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tic Tac Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic Tac Toe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/kreis.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/kreutz.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/eu/david/tictactoe/main/RecourceLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/res/ResourceLoader.java" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,17 +32,17 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+            <state relative-caret-position="128">
+              <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuFrame.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MenuFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/MenuFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+            <state relative-caret-position="336">
+              <caret line="86" column="13" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,12 +53,12 @@
       <file leaf-file-name="GameFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="192">
+              <caret line="12" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2703#2987#0" expanded="true" />
-                <element signature="e#2986#2987#0" expanded="true" />
+                <element signature="e#2699#2983#0" expanded="true" />
+                <element signature="e#2982#2983#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,14 +67,14 @@
       <file leaf-file-name="Dialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+            <state relative-caret-position="128">
+              <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecourceLoader.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/RecourceLoader.java">
+      <file leaf-file-name="ResourceLoader.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/res/ResourceLoader.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
               <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
@@ -108,7 +116,6 @@
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/EndDialogs.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialogs.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/Frame.java" />
-        <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/StartFrame.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialog.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/RessourceLoader.java" />
@@ -116,9 +123,13 @@
         <option value="$PROJECT_DIR$/res/ResourceLoader.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/ResourceLoader.java" />
         <option value="$PROJECT_DIR$/res/RecourceLoader.java" />
-        <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/MenuFrame.java" />
         <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/RecourceLoader.java" />
+        <option value="$PROJECT_DIR$/Tic Tac Toe.iml" />
+        <option value="$PROJECT_DIR$/src/res/RecourceLoader.java" />
+        <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java" />
+        <option value="$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java" />
+        <option value="$PROJECT_DIR$/src/res/ResourceLoader.java" />
       </list>
     </option>
   </component>
@@ -129,8 +140,8 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="365" />
-    <option name="y" value="45" />
+    <option name="x" value="294" />
+    <option name="y" value="-8" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -143,6 +154,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane>
           <expand>
@@ -159,7 +171,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -170,18 +181,32 @@
             <path>
               <item name="Tic Tac Toe" type="b2602c69:ProjectViewProjectNode" />
               <item name="Tic Tac Toe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Tic Tac Toe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Tic Tac Toe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Tic Tac Toe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Tic Tac Toe" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="res" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Tic Tac Toe" type="b2602c69:ProjectViewProjectNode" />
               <item name="Tic Tac Toe" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="icons" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -225,7 +250,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="eu.david.tictactoe.main.*" />
+          <option name="PATTERN" value=".*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -372,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530113787125</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="commit">
+      <created>1530114006134</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1530114006134</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -385,15 +417,15 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.18229167" side_tool="true" visible="true" weight="0.1487779" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.1828125" side_tool="true" visible="true" weight="0.1487779" />
       <window_info anchor="right" id="Maven Projects" order="6" weight="0.3265625" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8177083" visible="true" weight="0.1487779" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.8171875" visible="true" weight="0.1487779" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49947917" weight="0.32943678" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18541667" />
       <window_info anchor="bottom" id="Problems" order="10" weight="0.16259299" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18541667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="4" />
@@ -417,13 +449,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="36" column="60" lean-forward="true" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -437,8 +462,8 @@
           <caret line="48" column="48" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -473,8 +498,8 @@
           <caret line="263" column="17" lean-forward="true" selection-start-line="263" selection-start-column="17" selection-end-line="263" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -523,8 +548,8 @@
           <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -556,8 +581,8 @@
           <caret line="117" column="40" lean-forward="true" selection-start-line="117" selection-start-column="40" selection-end-line="117" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -575,8 +600,8 @@
           <caret line="41" column="29" lean-forward="true" selection-start-line="41" selection-start-column="29" selection-end-line="41" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -615,8 +640,8 @@
           <caret line="127" column="21" lean-forward="true" selection-start-line="127" selection-start-column="21" selection-end-line="127" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -641,8 +666,8 @@
           <caret line="160" column="5" lean-forward="true" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -667,8 +692,8 @@
           <caret line="157" column="17" lean-forward="true" selection-start-line="157" selection-start-column="17" selection-end-line="157" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -693,8 +718,8 @@
           <caret line="75" column="25" lean-forward="true" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -713,8 +738,8 @@
           <caret line="159" column="5" selection-start-line="159" selection-start-column="5" selection-end-line="159" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -740,8 +765,8 @@
           <caret line="124" column="36" selection-start-line="124" selection-start-column="36" selection-end-line="124" selection-end-column="36" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -768,56 +793,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/res/icons/kreis.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/ResourceLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/res/icons/kreis.png" />
+    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/ResourceLoader.java" />
+    <entry file="file://$PROJECT_DIR$/Tic Tac Toe.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="2" column="29" lean-forward="true" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2703#2987#0" expanded="true" />
-            <element signature="e#2986#2987#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="128">
+          <caret line="8" column="55" lean-forward="true" selection-start-line="8" selection-start-column="55" selection-end-line="8" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+        <state relative-caret-position="128">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/RecourceLoader.java">
+    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/MenuFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="336">
+          <caret line="86" column="13" selection-start-line="86" selection-start-column="13" selection-end-line="86" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/MenuFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/Dialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="39" lean-forward="true" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+        <state relative-caret-position="128">
+          <caret line="19" column="53" selection-start-line="19" selection-start-column="53" selection-end-line="19" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/eu/david/tictactoe/main/GameFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2699#2983#0" expanded="true" />
+            <element signature="e#2982#2983#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/res/ResourceLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
