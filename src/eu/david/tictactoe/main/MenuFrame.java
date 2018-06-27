@@ -20,6 +20,7 @@ public class MenuFrame extends JFrame {
     public MenuFrame() {
 
         super("TicTacToe Menu");
+        super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
