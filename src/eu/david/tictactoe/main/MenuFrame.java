@@ -5,26 +5,26 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 
-public class MenuFrame extends JFrame {
-
-    private JPanel panel;
+class MenuFrame extends JFrame {
 
     private JSlider[] sliders = new JSlider[3];
-    private JLabel[] infoLabels = new JLabel[3];
     private JLabel[] counterLabels = new JLabel[3];
 
     private JCheckBox gravityBox;
     private JComboBox modeBox;
-    private JButton startButton;
 
-    public MenuFrame() {
-
+    MenuFrame() {
         super("TicTacToe Menu");
         super.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JPanel panel;
+        JLabel[] infoLabels = new JLabel[3];
+        JButton startButton;
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
         }
 
         panel = new JPanel(new GridLayout(4, 3));
