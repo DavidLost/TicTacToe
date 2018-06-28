@@ -7,14 +7,13 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import res.ResourceLoader;
 
 import static java.lang.Integer.parseInt;
 
 class GameFrame extends JFrame {
 
-    boolean hasFinished = false;
-    int finishState = -1;
+    private boolean finished = false;
+    private int finishState = -1;
 
     private int sizeProportion = 100;
     private int columns;
@@ -30,8 +29,8 @@ class GameFrame extends JFrame {
     private int[][] winCombo;
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = ResourceLoader.getIcon("kreutz.png");
-    private ImageIcon kreisIcon = ResourceLoader.getIcon("kreis.png");
+    private ImageIcon kreutzIcon = new ImageIcon("res\\icons\\kreutz.png");
+    private ImageIcon kreisIcon = new ImageIcon("res\\icons\\kreis.png");
 
     public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
 
@@ -81,7 +80,7 @@ class GameFrame extends JFrame {
         add(panel);
         setSize(600, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
         getNewSizeProportion();
@@ -172,19 +171,19 @@ class GameFrame extends JFrame {
     private boolean checkForFinish() {
 
         if (isWinner(1)) {
-            hasFinished = true;
+            finished = true;
             finishState = 2;
         }
         else if (isWinner(2)) {
-            hasFinished = true;
+            finished = true;
             finishState = 1;
         }
         else if (isfieldFull()) {
-            hasFinished = true;
+            finished = true;
             finishState = 0;
         }
 
-        return hasFinished;
+        return finished;
     }
 
     private void botActions() {
@@ -302,7 +301,15 @@ class GameFrame extends JFrame {
         return false;
     }
 
-    void matrixOutput() {
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public int getFinishState() {
+        return finishState;
+    }
+
+    private void matrixOutput() {
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {

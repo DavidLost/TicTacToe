@@ -71,7 +71,7 @@ public class MenuFrame extends JFrame {
         setSize(700, 160);
         setLocationRelativeTo(null);
         setResizable(false);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
         startButton.addActionListener(event -> startGame());
@@ -107,17 +107,14 @@ public class MenuFrame extends JFrame {
             @Override
             public void run() {
 
-                while (!game.hasFinished) {
-                    if (game.finishState == -1) {
-                        dispose();
-                    }
+                while (!game.isFinished()) {
                     try {
                         Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                Dialog dialog = new Dialog(game, game.finishState, mode);
+                Dialog dialog = new Dialog(game, game.getFinishState(), mode);
                 game.dispose();
                 switch (dialog.choice) {
                     case 1 : restart();
@@ -137,6 +134,9 @@ public class MenuFrame extends JFrame {
 
     private void changeSettings() {setVisible(true);}
 
-    private void exit() {dispose();}
+    private void exit() {
+        dispose();
+        System.exit(0);
+    }
 
 }
