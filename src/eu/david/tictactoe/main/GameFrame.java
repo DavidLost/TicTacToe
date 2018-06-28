@@ -9,8 +9,9 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Integer.parseInt;
+import static javax.swing.JOptionPane.showMessageDialog;
 
-class GameFrame extends JFrame {
+public class GameFrame extends JFrame {
 
     private boolean finished = false;
     private int finishState = -1;
@@ -18,27 +19,31 @@ class GameFrame extends JFrame {
     private int sizeProportion = 100;
     private int columns;
     private int rows;
-    private int fieldInRowToWin;
+    private int fieldsInRowToWin;
     private int allFields;
     private boolean gravity;
     private int mode;
     private boolean playerTurn = false;
+    private boolean iconError = false;
 
     private JButton[][] buttons;
     private byte[][] matrix;
     private int[][] winCombo;
 
     private int gameCounter = 0;
-    private ImageIcon kreutzIcon = new ImageIcon("res\\icons\\kreutz.png");
-    private ImageIcon kreisIcon = new ImageIcon("res\\icons\\kreis.png");
+    private ImageIcon kreutzIcon;
+    private ImageIcon kreisIcon;
+    private ImageIcon kreutzIconWinner;
+    private ImageIcon kreisIconWinner;
 
-    public GameFrame(int columns, int rows, int fieldInRowToWin, boolean gravity, int mode) {
+
+    public GameFrame(int columns, int rows, int fieldsInRowToWin, boolean gravity, int mode) {
 
         super("TicTacToe");
 
         this.columns = columns;
         this.rows = rows;
-        this.fieldInRowToWin = fieldInRowToWin;
+        this.fieldsInRowToWin = fieldsInRowToWin;
         this.allFields = columns*rows;
         this.gravity = gravity;
         this.mode = mode;
@@ -49,7 +54,8 @@ class GameFrame extends JFrame {
                 matrix[y][x] = 0;
             }
         }
-        winCombo = new int[2][fieldInRowToWin];
+
+        winCombo = new int[2][fieldsInRowToWin];
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -71,11 +77,13 @@ class GameFrame extends JFrame {
                 if (x < 10) {name += "0";}
                 name += x;
                 buttons[y][x].setName(name);
-                System.out.println("name: "+name);
+                //System.out.println("name: "+name);
                 panel.add(buttons[y][x]);
                 buttons[y][x].addActionListener(event -> actions(event));
             }
         }
+
+        if (!loadIcons()) {finished = true;}
 
         add(panel);
         setSize(600, 600);
@@ -90,12 +98,46 @@ class GameFrame extends JFrame {
             public void componentResized(ComponentEvent event) {
 
                 getNewSizeProportion();
-                System.out.println("sizeProportion: "+sizeProportion);
                 updateButtonIcons();
             }
         });
     }
 
+    private boolean loadIcons() {
+
+        String kreutzIconPath = "res\\icons\\kreutz.png";
+        String kreisIconPath = "res\\icons\\kreis.png";
+        String kreutzIconWinnerPath = "res\\icons\\kreutz_winner.png";
+        String kreisIconWinnerPath = "res\\icons\\kreis_winner.png";
+
+        kreutzIcon = getImageIcon(kreutzIconPath);
+        kreisIcon = getImageIcon(kreisIconPath);
+        kreutzIconWinner = getImageIcon(kreutzIconWinnerPath);
+        kreisIconWinner = getImageIcon(kreisIconWinnerPath);
+
+        if (iconError) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private ImageIcon getImageIcon(String path) {
+
+        ImageIcon icon = new ImageIcon(path);
+        if (icon.getIconHeight() == -1) {
+            showMessageDialog(this, "icons couldn't be found!", "Error", JOptionPane.ERROR_MESSAGE);
+            iconError = true;
+            return null;
+        }
+        int maxPixels = 512;
+        if (icon.getIconHeight() > maxPixels || icon.getIconWidth() > maxPixels) {
+            showMessageDialog(this, "icons are not valid", "Error", JOptionPane.ERROR_MESSAGE);
+            iconError = true;
+            return null;
+        }
+        return icon;
+    }
 
     private void getNewSizeProportion() {
 
@@ -121,8 +163,12 @@ class GameFrame extends JFrame {
 
     ImageIcon scaleImageIcon(ImageIcon icon, int percent) {
 
+        int width = icon.getIconWidth();
+        int height = icon.getIconHeight();
+        double newWidth = width*((double)256/width)*percent/100;
+        double newHeight = height*((double)256/height)*percent/100;
         Image temp = icon.getImage();
-        temp = temp.getScaledInstance(icon.getIconWidth()*percent/100, icon.getIconHeight()*percent/100, Image.SCALE_SMOOTH);
+        temp = temp.getScaledInstance((int)newWidth, (int)newHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(temp);
     }
 
@@ -135,7 +181,7 @@ class GameFrame extends JFrame {
         }
         else {
             if (playerActions(event, playerTurn)) {return;}
-            if (checkForFinish()) {return;}
+            if (checkForFinish() && finishState != 0) {return;}
             botActions();
             if (checkForFinish()) {return;}
         }
@@ -181,6 +227,16 @@ class GameFrame extends JFrame {
         else if (isfieldFull()) {
             finished = true;
             finishState = 0;
+        }
+        if (finished && finishState != 0) {
+            for (int i = 0; i < fieldsInRowToWin; i++) {
+                if (finishState == 2) {
+                    buttons[winCombo[0][i]][winCombo[1][i]].setIcon(scaleImageIcon(kreutzIconWinner, sizeProportion));
+                }
+                else {
+                    buttons[winCombo[0][i]][winCombo[1][i]].setIcon(scaleImageIcon(kreisIconWinner, sizeProportion));
+                }
+            }
         }
 
         return finished;
@@ -231,16 +287,16 @@ class GameFrame extends JFrame {
 
         //check for horizontal row
         for (int locY = 0; locY < rows; locY++) {
-            for (int locX = 0; locX < columns-fieldInRowToWin+1; locX++) {
+            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
                 int counter = 0;
-                for (int partsX = locX; partsX < fieldInRowToWin+locX; partsX++) {
+                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++) {
                     if (matrix[locY][partsX] == type) {
                         winCombo[0][counter] = locY;
                         winCombo[1][counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldInRowToWin) {
+                if (counter == fieldsInRowToWin) {
                     return true;
                 }
             }
@@ -248,51 +304,51 @@ class GameFrame extends JFrame {
 
         //check for vertical row
         for (int locX = 0; locX < columns; locX++) {
-            for (int locY = 0; locY < rows-fieldInRowToWin+1; locY++) {
+            for (int locY = 0; locY < rows-fieldsInRowToWin+1; locY++) {
                 int counter = 0;
-                for (int partsY = locY; partsY < fieldInRowToWin+locY; partsY++) {
+                for (int partsY = locY; partsY < fieldsInRowToWin+locY; partsY++) {
                     if (matrix[partsY][locX] == type) {
                         winCombo[0][counter] = partsY;
                         winCombo[1][counter] = locX;
                         counter++;
                     }
                 }
-                if (counter == fieldInRowToWin) {
+                if (counter == fieldsInRowToWin) {
                     return true;
                 }
             }
         }
 
         //check for diagonal row
-        for (int locY = 0; locY < rows-fieldInRowToWin+1; locY++) {
-            for (int locX = 0; locX < columns-fieldInRowToWin+1; locX++) {
+        for (int locY = 0; locY < rows-fieldsInRowToWin+1; locY++) {
+            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
                 int counter = 0;
-                for (int partsX = locX; partsX < fieldInRowToWin+locX; partsX++) {
+                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++) {
                     if (matrix[locY+partsX-locX][partsX] == type) {
                         winCombo[0][counter] = locY+partsX-locX;
                         winCombo[1][counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldInRowToWin) {
+                if (counter == fieldsInRowToWin) {
                     return true;
                 }
             }
         }
 
         //check for diagonal row
-        for (int locY = rows-1; locY >= fieldInRowToWin-1; locY--) {
-            for (int locX = 0; locX < columns-fieldInRowToWin+1; locX++) {
+        for (int locY = rows-1; locY >= fieldsInRowToWin-1; locY--) {
+            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
                 int counter = 0;
                 int offsetY = 0;
-                for (int partsX = locX; partsX < fieldInRowToWin+locX; partsX++, offsetY++) {
+                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++, offsetY++) {
                     if (matrix[locY-offsetY][partsX] == type) {
                         winCombo[0][counter] = locY-offsetY;
                         winCombo[1][counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldInRowToWin) {
+                if (counter == fieldsInRowToWin) {
                     return true;
                 }
             }
@@ -309,7 +365,7 @@ class GameFrame extends JFrame {
         return finishState;
     }
 
-    private void matrixOutput() {
+    /*private void matrixOutput() {
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
@@ -319,6 +375,6 @@ class GameFrame extends JFrame {
             System.out.println();
         }
         System.out.println();
-    }
+    }*/
 
 }

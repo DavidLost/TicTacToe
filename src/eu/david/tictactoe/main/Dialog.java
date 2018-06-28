@@ -4,8 +4,6 @@ import javax.swing.*;
 
 public class Dialog {
 
-    int choice = 0;
-
     String[] options = {
             "revanche",
             "change settings",
@@ -40,6 +38,8 @@ public class Dialog {
             }
     };
 
+    private int choice = 0;
+
     public Dialog(JFrame frame, int winner, int mode) {
 
         if (mode == 0) {
@@ -66,5 +66,9 @@ public class Dialog {
                     options[0]
             )+1;
         }
+    }
+
+    public int getChoice() {
+        return choice;
     }
 }

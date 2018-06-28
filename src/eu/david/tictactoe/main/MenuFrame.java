@@ -92,8 +92,8 @@ public class MenuFrame extends JFrame {
 
         int columns = sliders[0].getValue();
         int rows = sliders[1].getValue();
-        int fieldInRowToWin = sliders[2].getValue();
-        if (fieldInRowToWin > columns && fieldInRowToWin > rows) {
+        int fieldsInRowToWin = sliders[2].getValue();
+        if (fieldsInRowToWin > columns && fieldsInRowToWin > rows) {
             return;
         }
         boolean gravity = gravityBox.isSelected();
@@ -101,29 +101,30 @@ public class MenuFrame extends JFrame {
 
         setVisible(false);
 
-        GameFrame game = new GameFrame(columns, rows, fieldInRowToWin, gravity, mode);
+        GameFrame game = new GameFrame(columns, rows, fieldsInRowToWin, gravity, mode);
 
-        Thread checkGameState = new Thread(new Runnable() {
-            @Override
-            public void run() {
+        Thread checkGameState = new Thread(() -> {
 
-                while (!game.isFinished()) {
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            while (!game.isFinished()) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                Dialog dialog = new Dialog(game, game.getFinishState(), mode);
+            }
+            if (game.getFinishState() == -1) {
                 game.dispose();
-                switch (dialog.choice) {
-                    case 1 : restart();
-                        break;
-                    case 2 : changeSettings();
-                        break;
-                    case 3 : exit();
-                        break;
-                }
+                exit();
+            }
+            Dialog dialog = new Dialog(game, game.getFinishState(), mode);
+            game.dispose();
+            switch (dialog.getChoice()) {
+                case 1 : restart();
+                    break;
+                case 2 : changeSettings();
+                    break;
+                case 3 : exit();
+                    break;
             }
         });
 
