@@ -105,7 +105,7 @@ public class GameFrame extends JFrame {
 
     private boolean loadIcons() {
 
-        String kreutzIconPath = "res\\icons\\kreutz.png";
+        String kreutzIconPath = "res\\icons\\test.png";
         String kreisIconPath = "res\\icons\\kreis.png";
         String kreutzIconWinnerPath = "res\\icons\\kreutz_winner.png";
         String kreisIconWinnerPath = "res\\icons\\kreis_winner.png";
@@ -150,12 +150,15 @@ public class GameFrame extends JFrame {
 
     private void updateButtonIcons() {
 
-        for (int y = 0; y < columns; y++) {
-            for (int x = 0; x < rows; x++) {
+        ImageIcon scaledKreutzIcon = scaleImageIcon(kreutzIcon, sizeProportion);
+        ImageIcon scaledKreisIcon = scaleImageIcon(kreisIcon, sizeProportion);
+
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < columns; x++) {
                 switch (matrix[y][x]) {
-                    case 1 : buttons[y][x].setIcon(scaleImageIcon(kreutzIcon, sizeProportion));
+                    case 1 : buttons[y][x].setIcon(scaledKreutzIcon);
                         break;
-                    case 2 : buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+                    case 2 : buttons[y][x].setIcon(scaledKreisIcon);
                 }
             }
         }
