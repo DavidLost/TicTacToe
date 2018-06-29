@@ -1,4 +1,4 @@
-package eu.david.tictactoe.main;
+package gui;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -112,6 +112,8 @@ public class MenuFrame extends JFrame {
                     e.printStackTrace();
                 }
             }
+
+
             if (game.getFinishState() == -1) {
                 game.dispose();
                 exit();
