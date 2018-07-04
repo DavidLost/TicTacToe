@@ -28,7 +28,8 @@ public class GameFrame extends JFrame {
 
     private JButton[][] buttons;
     private byte[][] matrix;
-    private int[][] winCombo;
+    private int[] winComboY;
+    private int[] winComboX;
 
     private int gameCounter = 0;
     private ImageIcon kreutzIcon;
@@ -55,7 +56,8 @@ public class GameFrame extends JFrame {
             }
         }
 
-        winCombo = new int[2][fieldsInRowToWin];
+        winComboY = new int[fieldsInRowToWin];
+        winComboX = new int[fieldsInRowToWin];
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -217,13 +219,50 @@ public class GameFrame extends JFrame {
         return false;
     }
 
+    private void botActions() {
+
+        for (int i = 1; i <= 2; i++) {
+            boolean found = false;
+            if (isHorizontalRow(fieldsInRowToWin-1, i)) {
+                int nextY1 = winComboY[0];
+                found = true;
+            }
+            if (isVerticalRow(fieldsInRowToWin-1, i)) {
+                found = true;
+            }
+            if (isDiagonalRow1(fieldsInRowToWin-1, i)) {
+                found = true;
+            }
+            if (isDiagonalRow2(fieldsInRowToWin-1, i)) {
+                found = true;
+            }
+            if (found) {
+                for (int x = 0; x < fieldsInRowToWin-1; x++) {
+                    System.out.print(winComboY[x]+"/");
+                    System.out.println(winComboX[x]);
+                }
+                System.out.println();
+            }
+
+        }
+
+        int temp[] = getBotButton();
+        int y = temp[0];
+        int x = temp[1];
+        if (gravity) {
+            y = getGravityY(y, x);
+        }
+        matrix[y][x] = 2;
+        buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
+    }
+
     private boolean checkForFinish() {
 
-        if (isWinner(1)) {
+        if (isWinner(fieldsInRowToWin, 1)) {
             finished = true;
             finishState = 2;
         }
-        else if (isWinner(2)) {
+        else if (isWinner(fieldsInRowToWin, 2)) {
             finished = true;
             finishState = 1;
         }
@@ -234,27 +273,15 @@ public class GameFrame extends JFrame {
         if (finished && finishState != 0) {
             for (int i = 0; i < fieldsInRowToWin; i++) {
                 if (finishState == 2) {
-                    buttons[winCombo[0][i]][winCombo[1][i]].setIcon(scaleImageIcon(kreutzIconWinner, sizeProportion));
+                    buttons[winComboY[i]][winComboX[i]].setIcon(scaleImageIcon(kreutzIconWinner, sizeProportion));
                 }
                 else {
-                    buttons[winCombo[0][i]][winCombo[1][i]].setIcon(scaleImageIcon(kreisIconWinner, sizeProportion));
+                    buttons[winComboY[i]][winComboX[i]].setIcon(scaleImageIcon(kreisIconWinner, sizeProportion));
                 }
             }
         }
 
         return finished;
-    }
-
-    private void botActions() {
-
-        int temp[] = getBotButton();
-        int y = temp[0];
-        int x = temp[1];
-        if (gravity) {
-            y = getGravityY(y, x);
-        }
-        matrix[y][x] = 2;
-        buttons[y][x].setIcon(scaleImageIcon(kreisIcon, sizeProportion));
     }
 
     private int getGravityY(int y, int x) {
@@ -286,77 +313,96 @@ public class GameFrame extends JFrame {
         return gameCounter >= allFields-1;
     }
 
-    private boolean isWinner(int type) {
+    private boolean isWinner(int rowLength, int type) {
 
-        //check for horizontal row
+        if (isHorizontalRow(rowLength, type) ||
+            isVerticalRow(rowLength, type) ||
+            isDiagonalRow1(rowLength, type) ||
+            isDiagonalRow2(rowLength, type))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isHorizontalRow(int rowLength, int type) {
+
         for (int locY = 0; locY < rows; locY++) {
-            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
+            for (int locX = 0; locX < columns-rowLength+1; locX++) {
                 int counter = 0;
-                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++) {
+                for (int partsX = locX; partsX < rowLength+locX; partsX++) {
                     if (matrix[locY][partsX] == type) {
-                        winCombo[0][counter] = locY;
-                        winCombo[1][counter] = partsX;
+                        winComboY[counter] = locY;
+                        winComboX[counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldsInRowToWin) {
+                if (counter == rowLength) {
                     return true;
                 }
             }
         }
+        return false;
+    }
 
-        //check for vertical row
+    private boolean isVerticalRow(int rowLength, int type) {
+
         for (int locX = 0; locX < columns; locX++) {
-            for (int locY = 0; locY < rows-fieldsInRowToWin+1; locY++) {
+            for (int locY = 0; locY < rows-rowLength+1; locY++) {
                 int counter = 0;
-                for (int partsY = locY; partsY < fieldsInRowToWin+locY; partsY++) {
+                for (int partsY = locY; partsY < rowLength+locY; partsY++) {
                     if (matrix[partsY][locX] == type) {
-                        winCombo[0][counter] = partsY;
-                        winCombo[1][counter] = locX;
+                        winComboY[counter] = partsY;
+                        winComboX[counter] = locX;
                         counter++;
                     }
                 }
-                if (counter == fieldsInRowToWin) {
+                if (counter == rowLength) {
                     return true;
                 }
             }
         }
+        return false;
+    }
 
-        //check for diagonal row
-        for (int locY = 0; locY < rows-fieldsInRowToWin+1; locY++) {
-            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
+    private boolean isDiagonalRow1(int rowLength, int type) {
+
+        for (int locY = 0; locY < rows-rowLength+1; locY++) {
+            for (int locX = 0; locX < columns-rowLength+1; locX++) {
                 int counter = 0;
-                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++) {
+                for (int partsX = locX; partsX < rowLength+locX; partsX++) {
                     if (matrix[locY+partsX-locX][partsX] == type) {
-                        winCombo[0][counter] = locY+partsX-locX;
-                        winCombo[1][counter] = partsX;
+                        winComboY[counter] = locY+partsX-locX;
+                        winComboX[counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldsInRowToWin) {
+                if (counter == rowLength) {
                     return true;
                 }
             }
         }
+        return false;
+    }
 
-        //check for diagonal row
-        for (int locY = rows-1; locY >= fieldsInRowToWin-1; locY--) {
-            for (int locX = 0; locX < columns-fieldsInRowToWin+1; locX++) {
+    private boolean isDiagonalRow2(int rowLength, int type) {
+
+        for (int locY = rows-1; locY >= rowLength-1; locY--) {
+            for (int locX = 0; locX < columns-rowLength+1; locX++) {
                 int counter = 0;
                 int offsetY = 0;
-                for (int partsX = locX; partsX < fieldsInRowToWin+locX; partsX++, offsetY++) {
+                for (int partsX = locX; partsX < rowLength+locX; partsX++, offsetY++) {
                     if (matrix[locY-offsetY][partsX] == type) {
-                        winCombo[0][counter] = locY-offsetY;
-                        winCombo[1][counter] = partsX;
+                        winComboY[counter] = locY-offsetY;
+                        winComboX[counter] = partsX;
                         counter++;
                     }
                 }
-                if (counter == fieldsInRowToWin) {
+                if (counter == rowLength) {
                     return true;
                 }
             }
         }
-
         return false;
     }
 
